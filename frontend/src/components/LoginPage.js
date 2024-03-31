@@ -13,7 +13,7 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             // Attempt to log in
-            const response = await axios.post('http://localhost:3000/login', {
+            const response = await axios.post('https://nvmt-smart-app.azurewebsites.net/login', {
                 username,
                 password
             });

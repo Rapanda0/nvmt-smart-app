@@ -23,9 +23,9 @@ const Inventory = () => {
     const fetchData = async () => {
       try {
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
-          axios.get('http://localhost:3000/inventory'),
-          axios.get('http://localhost:3000/categories'),
-          axios.get('http://localhost:3000/suppliers'),
+          axios.get('https://nvmt-smart-app.azurewebsites.net/inventory'),
+          axios.get('https://nvmt-smart-app.azurewebsites.net/categories'),
+          axios.get('https://nvmt-smart-app.azurewebsites.net/suppliers'),
         ]);
         setInventoryItems(inventoryResponse.data);
         setCategories(categoryResponse.data);
@@ -43,7 +43,7 @@ const Inventory = () => {
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/categories', { name: newCategoryName });
+      const response = await axios.post('https://nvmt-smart-app.azurewebsites.net/categories', { name: newCategoryName });
       setCategories([...categories, response.data]);
       setNewCategoryName('');
       setCategoryError(''); 
@@ -58,7 +58,7 @@ const Inventory = () => {
     const capitalizedItemName = newItem.name.charAt(0).toUpperCase() + newItem.name.slice(1);
 
     try {
-      const response = await axios.post('http://localhost:3000/inventory', {
+      const response = await axios.post('https://nvmt-smart-app.azurewebsites.net/inventory', {
         ...newItem,
         name: capitalizedItemName,
         category_id: newItem.categoryId,
