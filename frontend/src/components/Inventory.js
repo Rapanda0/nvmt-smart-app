@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Inventory.css';
+import BASE_URL from './api';
 
 const Inventory = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -23,9 +24,9 @@ const Inventory = () => {
     const fetchData = async () => {
       try {
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
-          axios.get('http://localhost:3000/inventory'),
-          axios.get('http://localhost:3000/categories'),
-          axios.get('http://localhost:3000/suppliers'),
+          axios.get(`${BASE_URL}/inventory`),
+          axios.get(`${BASE_URL}/categories`),
+          axios.get(`${BASE_URL}/suppliers`),
         ]);
         setInventoryItems(inventoryResponse.data);
         setCategories(categoryResponse.data);
@@ -43,7 +44,7 @@ const Inventory = () => {
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/categories', { name: newCategoryName });
+      const response = await axios.post(`${BASE_URL}/categories`, { name: newCategoryName });
       setCategories([...categories, response.data]);
       setNewCategoryName('');
       setCategoryError(''); 
@@ -58,7 +59,7 @@ const Inventory = () => {
     const capitalizedItemName = newItem.name.charAt(0).toUpperCase() + newItem.name.slice(1);
 
     try {
-      const response = await axios.post('http://localhost:3000/inventory', {
+      const response = await axios.post(`${BASE_URL}/inventory`, {
         ...newItem,
         name: capitalizedItemName,
         category_id: newItem.categoryId,
