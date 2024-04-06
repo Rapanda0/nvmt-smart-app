@@ -32,7 +32,7 @@ const inventoryRoutes = require('./routes/inventoryRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
 const orderRoutes = require('./routes/orderRoutes'); 
 
-app.use(authRoutes); 
+// app.use(authRoutes); 
 app.use(inventoryRoutes); 
 app.use(supplierRoutes); 
 app.use(orderRoutes); 
