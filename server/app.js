@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3000;
 const cors = require('cors');
-const bcrypt = require('bcrypt');
+
 
 
 app.use(cors());
@@ -27,7 +27,7 @@ function authenticateToken(req, res, next) {
 }
 
 // Routes
-const authRoutes = require('./routes/authRoutes');
+// const authRoutes = require('./routes/authRoutes');
 const inventoryRoutes = require('./routes/inventoryRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
 const orderRoutes = require('./routes/orderRoutes'); 
@@ -45,12 +45,6 @@ app.get('/', (req, res) => {
 app.get('/protected', authenticateToken, (req, res) => {
     res.json({ message: "This is protected" });
 });
-
-//production script 
-// app.use(express.static('./frontend/build'));
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-// });
 
 
 app.listen(port, () => {
