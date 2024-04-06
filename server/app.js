@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3000;
 const cors = require('cors');
-const path = require('path');
+const bcrypt = require('bcrypt');
+
 
 app.use(cors());
 app.use(bodyParser.json()); 
@@ -46,10 +47,10 @@ app.get('/protected', authenticateToken, (req, res) => {
 });
 
 //production script 
-app.use(express.static('./frontend/build'));
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-});
+// app.use(express.static('./frontend/build'));
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+// });
 
 
 app.listen(port, () => {
