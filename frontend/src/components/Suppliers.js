@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Suppliers.css'; 
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from './api';
 
 const Suppliers = () => {
     const navigate = useNavigate(); 
@@ -18,7 +19,7 @@ const Suppliers = () => {
         const fetchSuppliers = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:3000/suppliers');
+                const response = await axios.get(`${BASE_URL}/suppliers`);
                 setSuppliers(response.data);
             } catch (error) {
                 console.error("Failed to fetch suppliers:", error);
@@ -38,7 +39,7 @@ const Suppliers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/suppliers', newSupplier);
+            const response = await axios.post(`${BASE_URL}/suppliers`, newSupplier);
             setSuppliers(prevSuppliers => [...prevSuppliers, response.data]);
             setNewSupplier({ name: '', email: '', phone: '', address: '' }); 
         } catch (error) {
