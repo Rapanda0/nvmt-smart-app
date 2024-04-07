@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Suppliers.css'; 
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from './api';
 
 const Suppliers = () => {
     const navigate = useNavigate(); 

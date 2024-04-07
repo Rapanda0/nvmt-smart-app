@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OrdersAndPurchases.css'; 
+import BASE_URL from './api';
 
 const OrdersAndPurchases = () => {
     const [orders, setOrders] = useState([]);
@@ -18,8 +19,8 @@ const OrdersAndPurchases = () => {
             setLoading(true);
             try {
                 const [orderResponse, supplierResponse] = await Promise.all([
-                    axios.get('http://localhost:3000/orders'),
-                    axios.get('http://localhost:3000/suppliers')
+                    axios.get(`${BASE_URL}/inventory/orders`),
+                    axios.get(`${BASE_URL}/inventory/suppliers`)
                 ]);
                 setOrders(orderResponse.data);
                 setSuppliers(supplierResponse.data);
@@ -41,7 +42,7 @@ const OrdersAndPurchases = () => {
     const handleSubmitOrder = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/orders', newOrder);
+            const response = await axios.post(`${BASE_URL}/inventory/orders`, newOrder);
             setOrders([...orders, response.data]);
             setNewOrder({ order_date: '', total_amount: '', supplier_id: '', is_purchase_order: false });
         } catch (error) {

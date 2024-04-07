@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'; 
 import logo from '../assets/logo.jpg'; 
+import BASE_URL from './api';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
