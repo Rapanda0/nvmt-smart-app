@@ -17,7 +17,7 @@ const SignupPage = () => {
         setSuccessMessage(''); 
 
         try {
-            await axios.post('http://localhost:3000/register', {
+            await axios.post(`${BASE_URL}/register`, {
                 username,
                 password,
             });
