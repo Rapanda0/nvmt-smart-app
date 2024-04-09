@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
+import LogoutButton from './LogoutButton';
 
 
 
@@ -13,13 +14,11 @@ import suppliersIcon from '../assets/supplier.webp';
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate('/', { state: { message: 'Logout successful' } });
-  };
-
   return (
     <div className="dashboardContainer">
-      <button className="logoutButton" onClick={handleLogout}>Logout</button>
+      <div className='logoutButton'>
+      <LogoutButton />
+      </div>
       <div className="flexBoxesContainer">
         <div className="flexBox" onClick={() => navigate('/inventory')}>
           <img src={inventoryIcon} alt="Inventory Icon" className="icon" />

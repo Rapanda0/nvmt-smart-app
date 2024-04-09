@@ -10,26 +10,51 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         // Attempt to log in
+    //         const response = await axios.post(`${BASE_URL}/login`, {
+    //             username,
+    //             password
+    //         });
+
+            
+    //         console.log(response.data);
+
+        
+        
+            
+    //         navigate('/dashboard');
+    //     } catch (error) {
+    //         console.error(error);
+            
+           
+    //     }
+    // };
+
+    // using local backend and testing token handling
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // Attempt to log in
-            const response = await axios.post(`${BASE_URL}/login`, {
+            const response = await axios.post(`http://localhost:3000/login`, {
                 username,
                 password
             });
 
-            
-            console.log(response.data);
+            // Extract token from response
+            const { accessToken, role_id } = response.data;
 
-        
-        
-            
+            // Store token in localStorage
+            localStorage.setItem('token', accessToken);
+            localStorage.setItem('role_id', role_id);
+
+            // Navigate to dashboard
             navigate('/dashboard');
         } catch (error) {
-            console.error(error);
-            
-           
+            console.error('Login failed:', error);
+            // Handle login failure (e.g., display error message)
         }
     };
 
