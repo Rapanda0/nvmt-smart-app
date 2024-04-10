@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Inventory.css';
 import BASE_URL from './api';
 import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../utils/authUtils';
 
 
 const Inventory = () => {
@@ -26,17 +27,13 @@ const Inventory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            // Redirect to login if token is missing
+        if (!isAuthenticated()) {
             navigate('/login');
             return;
         }
 
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
-          // axios.get(`${BASE_URL}/inventory`),
-          //testing local bcakend
-          axios.get('http://localhost:3000/inventory'),
+          axios.get(`${BASE_URL}/inventory`),
           axios.get(`${BASE_URL}/categories`),
           axios.get(`${BASE_URL}/suppliers`),
         ]);

@@ -10,35 +10,13 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         // Attempt to log in
-    //         const response = await axios.post(`${BASE_URL}/login`, {
-    //             username,
-    //             password
-    //         });
-
-            
-    //         console.log(response.data);
-
-        
-        
-            
-    //         navigate('/dashboard');
-    //     } catch (error) {
-    //         console.error(error);
-            
-           
-    //     }
-    // };
 
     // using local backend and testing token handling
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // Attempt to log in
-            const response = await axios.post(`http://localhost:3000/login`, {
+            const response = await axios.post(`${BASE_URL}/login`, {
                 username,
                 password
             });

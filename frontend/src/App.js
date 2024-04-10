@@ -8,6 +8,7 @@ import Inventory from './components/Inventory';
 import Suppliers from './components/Suppliers'; 
 import OrdersAndPurchases from './components/OrdersAndPurchases'; 
 import Admin from './components/Admin';
+import Forbidden from './components/Forbidden';
 
 function App() {
   const userRole = localStorage.getItem('role_id');
@@ -22,6 +23,7 @@ function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/suppliers" element={<Suppliers />} />
         <Route path="/orders" element={<OrdersAndPurchases />} />
+        <Route path="/forbidden" element={<Forbidden />} />
         {userRole === '1' ? (
           <Route path="/admin" element={<Admin />} />
         ) : (
