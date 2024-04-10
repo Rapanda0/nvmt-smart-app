@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Inventory.css';
 import BASE_URL from './api';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../utils/authUtils';
+
 
 const Inventory = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -10,6 +13,7 @@ const Inventory = () => {
   const [loading, setLoading] = useState(true);
   const [categoryError, setCategoryError] = useState('');
   const [newCategoryName, setNewCategoryName] = useState('');
+  const navigate = useNavigate();
   const [newItem, setNewItem] = useState({
     name: '',
     quantity: '',
@@ -23,6 +27,11 @@ const Inventory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (!isAuthenticated()) {
+            navigate('/login');
+            return;
+        }
+
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
           axios.get(`${BASE_URL}/inventory`),
           axios.get(`${BASE_URL}/categories`),

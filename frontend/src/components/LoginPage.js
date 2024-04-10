@@ -10,6 +10,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+
+    // using local backend and testing token handling
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -19,17 +21,18 @@ const LoginPage = () => {
                 password
             });
 
-            
-            console.log(response.data);
+            // Extract token from response
+            const { accessToken, role_id } = response.data;
 
-        
-        
-            
+            // Store token in localStorage
+            localStorage.setItem('token', accessToken);
+            localStorage.setItem('role_id', role_id);
+
+            // Navigate to dashboard
             navigate('/dashboard');
         } catch (error) {
-            console.error(error);
-            
-           
+            console.error('Login failed:', error);
+            // Handle login failure (e.g., display error message)
         }
     };
 

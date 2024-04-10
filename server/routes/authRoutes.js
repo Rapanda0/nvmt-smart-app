@@ -54,14 +54,20 @@ router.post('/login', [
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    
+    //user data from query
+    const userData = {
+      id: user.rows[0].id,
+      username: user.rows[0].username,
+      role_id: user.rows[0].role_id,
+    };
+
     const accessToken = jwt.sign(
-      { username: user.rows[0].username },
+      userData, 
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '1h' } // Token expires in 1 hour
+      { expiresIn: '1h' } 
     );
 
-    res.json({ accessToken: accessToken });
+    res.json({ accessToken: accessToken, role_id: userData.role_id });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
