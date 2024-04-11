@@ -19,13 +19,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px; 
-    height: 150px; 
-    background-color: #02a157;
+    width: 275px; 
+    height: 175px; 
+    background: linear-gradient(to bottom,#3fad1d, #2f8c15);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: transform 0.3s ease;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    margin-right: 25px;
 }
 
 .flexBox:hover {
@@ -37,17 +40,22 @@
     top: 20px;
     left: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background: linear-gradient(to bottom,#3fad1d, #2f8c15);
     color: white;
     border: none;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
     z-index: 1050; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .logoutButton:hover {
-    background-color: #45a049;
+    background-color: #2f8c15; /* Darker shade of green */
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .icon {

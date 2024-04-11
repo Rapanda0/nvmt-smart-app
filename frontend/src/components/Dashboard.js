@@ -7,7 +7,7 @@ import LogoutButton from './LogoutButton';
 
 import inventoryIcon from '../assets/inventory.png';
 import ordersIcon from '../assets/oandp.png';
-import suppliersIcon from '../assets/supplier.webp';
+import suppliersIcon from '../assets/suppliers.png';
 import adminIcon from '../assets/adminicon.png';
 import userRoleCheck from '../utils/authUtils';
 
