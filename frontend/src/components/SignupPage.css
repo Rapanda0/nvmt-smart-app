@@ -3,6 +3,9 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
   background: white;
+  background-image: url('..\\frontend\\src\\assets\\background-image.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .signupContainer {
   display: flex;
@@ -62,6 +65,7 @@ body {
   background-color: #2f8c15; /* Darker shade of green */
   transform: scale(1.02);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
 }
 
 .error {
@@ -99,6 +103,7 @@ body {
   background-color: #0056b3;
   transform: scale(1.02);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  font-weight: bold;
 }
 
   

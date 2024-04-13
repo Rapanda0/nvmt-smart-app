@@ -1,11 +1,12 @@
 /* src/components/HomePage.css */
 
 /* Reset CSS */
-* {
+.body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 
 .contentContainer {
   display: flex;
@@ -19,6 +20,7 @@
   position: relative; /* Required for z-index */
   background-image: url('..\\frontend\\src\\assets\\restaurant.png');
   background-size: 100% 100%; /* Ensure the background image covers the entire screen */
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,13 +111,37 @@
 .homeLoginButton:hover {
   background: linear-gradient(to bottom, #0056b3, #004094);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  font-weight: bold;
 }
 
 
 .homeSignupButton:hover{
   background: linear-gradient(to bottom, #2f8c15, #2f8c15);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  font-weight: bold;
 }
+.homeLoginButton:active, .homeSignupButton:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.homeLoginButton.animated, .homeSignupButton.animated {
+  animation: moveInBottom 1.5s ease-in-out;
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 @keyframes fadeInUp {
   from {

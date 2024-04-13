@@ -16,6 +16,7 @@ const HomePage = () => {
   };
 
   return (
+    <body>
     <div className="contentContainer">
       <div className="leftSide">
         <h1 className="animatedText">Welcome to NVMT</h1>
@@ -30,6 +31,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
+    </body>
   );
 };
 
