@@ -18,7 +18,7 @@
 .leftSide {
   flex: 6;
   position: relative; /* Required for z-index */
-  background-image: url('..\\frontend\\src\\assets\\restaurant.png');
+  background-image: url('../assets/restaurant.png');
   background-size: 100% 100%; /* Ensure the background image covers the entire screen */
   background-repeat: no-repeat;
   display: flex;
