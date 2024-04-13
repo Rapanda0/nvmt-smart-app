@@ -1,13 +1,12 @@
-
+/* Global styles */
 div {
-    font-family: Arial, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 20px;
 }
 
 h2, h3 {
     color: #333;
 }
-
 
 table {
     width: 100%;
@@ -42,7 +41,6 @@ p {
     color: #666;
 }
 
-
 form {
     margin-bottom: 20px;
 }
@@ -58,20 +56,25 @@ select {
     border-radius: 4px;
 }
 
+/* Button styles */
 button {
-    background-color: #4CAF50;
+    background: linear-gradient(to bottom, #3fad1d, #2f8c15);
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
     background-color: #45a049;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-
+/* List styles */
 .orderItemDetailList,
 .supplierDetailList {
     list-style-type: none;
@@ -89,12 +92,12 @@ button:hover {
     background-color: #f2f2f2;
 }
 
-
+/* Additional alignment styles */
 .isPurchaseOrderCol, .supplierCol, .totalAmountCol {
     text-align: center;
 }
 
-
+/* Responsive styles */
 @media (max-width: 768px) {
     table, input, select, button {
         width: 100%;
