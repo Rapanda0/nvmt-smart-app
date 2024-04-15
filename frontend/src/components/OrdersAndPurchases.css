@@ -12,7 +12,6 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #f2f2f2; /* Changed table background color to light grey */
 }
 
 th, td {
@@ -98,12 +97,12 @@ button:hover {
     text-align: center;
 }
 
-/* Apply background image only to OrdersAndPurchases page */
 .ordersAndPurchasesBackground {
-    background-image: url("file:///C:/Users/Parth/Downloads/background-image.svg"); /* Adjust your background image path here */
-    background-size: cover; /* Ensure the background image covers the full viewport */
-    background-repeat: no-repeat; /* Prevent the background from repeating */
-    padding: 0; /* You may need to adjust padding based on your design */
-    margin: 0; /* Remove default margin */
-    height: 100vh; /* Set height to cover the full viewport height */
-}
+    background-image: url("../assets/background-image.svg");
+    /* Adjust the path to your background image */
+    background-size: 100% 100%; /* Stretch the background image to cover the entire container */
+    background-repeat: no-repeat;
+    padding: 20px; /* You may need to adjust padding based on your design */
+  }
+  
+  
