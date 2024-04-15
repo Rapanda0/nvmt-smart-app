@@ -5,6 +5,9 @@ import BASE_URL from './api';
 import './global.css';
 
 const OrdersAndPurchases = () => {
+
+    document.title = "Orders";
+    
     const [orders, setOrders] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);

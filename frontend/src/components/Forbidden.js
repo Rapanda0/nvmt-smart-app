@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import './global.css';
 
 const Forbidden = () => {
+
+  document.title = '403 Forbidden';
+  
   const navigate = useNavigate();
   
   return (

@@ -6,6 +6,7 @@ import BASE_URL from './api';
 import './global.css';
 
 const Suppliers = () => {
+    document.title = "Suppliers";
     const navigate = useNavigate(); 
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);

@@ -8,6 +8,9 @@ import './global.css';
 
 
 const Inventory = () => {
+
+  document.title = 'Inventory';
+  
   const [inventoryItems, setInventoryItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [suppliers, setSuppliers] = useState([]);

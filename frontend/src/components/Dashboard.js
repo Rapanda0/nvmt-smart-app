@@ -14,6 +14,9 @@ import adminIcon from '../assets/adminicon.png';
 import userRoleCheck from '../utils/authUtils';
 
 const Dashboard = () => {
+
+  document.title = 'Dashboard';
+  
   const navigate = useNavigate();
   const isAdmin = userRoleCheck();
 
