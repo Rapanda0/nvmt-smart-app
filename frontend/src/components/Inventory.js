@@ -4,9 +4,13 @@ import './Inventory.css';
 import BASE_URL from './api';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticated } from '../utils/authUtils';
+import './global.css';
 
 
 const Inventory = () => {
+
+  document.title = 'Inventory';
+  
   const [inventoryItems, setInventoryItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
@@ -23,15 +27,16 @@ const Inventory = () => {
     threshold_quantity: '',
     unit_of_measurement: '',
   });
+  const [addItemError, setAddItemError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!isAuthenticated()) {
-            navigate('/login');
-            return;
-        }
-
+        //if (!isAuthenticated()) {
+        //    navigate('/login');
+        //    return;
+        //}
+      
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
           axios.get(`${BASE_URL}/inventory`),
           axios.get(`${BASE_URL}/categories`),
@@ -52,11 +57,15 @@ const Inventory = () => {
 
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
+    if (!newCategoryName.trim()) {
+      setCategoryError('Please enter a category name');
+      return;
+    }
     try {
       const response = await axios.post(`${BASE_URL}/categories`, { name: newCategoryName });
       setCategories([...categories, response.data]);
       setNewCategoryName('');
-      setCategoryError(''); 
+      setCategoryError('');
     } catch (error) {
       console.error('Error adding new category: ', error);
       setCategoryError('Category already exists or another error occurred');
@@ -65,6 +74,15 @@ const Inventory = () => {
 
   const handleItemSubmit = async (e) => {
     e.preventDefault();
+    const requiredFields = ['name', 'quantity', 'price', 'categoryId', 'supplierId', 'threshold_quantity', 'unit_of_measurement'];
+    const emptyFields = requiredFields.filter(field => !newItem[field]);
+    if (emptyFields.length > 0) {
+      emptyFields.forEach(field => {
+        setNewItem(prevState => ({ ...prevState, [field]: '' }));
+      });
+      setAddItemError('Please Fill In The Empty Fields');
+      return;
+    }
     const capitalizedItemName = newItem.name.charAt(0).toUpperCase() + newItem.name.slice(1);
 
     try {
@@ -91,19 +109,28 @@ const Inventory = () => {
         threshold_quantity: '',
         unit_of_measurement: '',
       });
+      setAddItemError('');
     } catch (error) {
       console.error('Error adding new item: ', error);
     }
   };
 
   if (loading) {
-    return <p>Loading...</p>;
-  }
-
+    return (
+        <div className= "loadingText">
+            Loading...
+            <div className="center">
+                {[...Array(10)].map((_, index) => (
+                    <div key={index} className="wave"></div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
   return (
     <div className="inventoryPageContainer">
-      <button onClick={() => window.history.back()}>Back</button>
+      <button onClick={() => window.history.back()} className= "backButton">Back</button>
       <div className="leftColumn">
         <div className="categoryCreation">
           <h3>Create New Category</h3>
@@ -117,12 +144,13 @@ const Inventory = () => {
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
             />
-            <button type="submit">Add Category</button>
+            <button type="submit" className= "categoryButton">Add Category</button>
           </form>
         </div>
         <div className="addItemSection">
-          <h3>Add Inventory Item</h3>
-          <form onSubmit={handleItemSubmit}>
+          <h3 className= "addItemHeader">Add Inventory Item</h3>
+          {addItemError && <div style={{ color: 'red' }}>{addItemError}</div>}
+          <form onSubmit={handleItemSubmit} className= "addItemForm">
             <label htmlFor="itemCategory">Category:</label>
             <select
               id="itemCategory"
@@ -186,12 +214,12 @@ const Inventory = () => {
               value={newItem.unit_of_measurement}
               onChange={(e) => setNewItem({ ...newItem, unit_of_measurement: e.target.value })}
             />
-            <button type="submit">Add Item</button>
+            <button type="submit" className= "addItemButton">Add Item</button>
           </form>
         </div>
       </div>
       <div className="inventoryDisplay">
-        <h3>Inventory on Hand</h3>
+        <h3 className= "inventoryDisplayHeader">Inventory on Hand</h3> 
         <table>
           <thead>
             <tr>
@@ -226,4 +254,5 @@ const Inventory = () => {
 };
 
 export default Inventory;
+
 

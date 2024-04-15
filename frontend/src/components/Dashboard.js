@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import LogoutButton from './LogoutButton';
+import './LogoutButton.css';
+import './global.css';
 
 
 
 import inventoryIcon from '../assets/inventory.png';
 import ordersIcon from '../assets/oandp.png';
-import suppliersIcon from '../assets/supplier.webp';
+import suppliersIcon from '../assets/suppliers.png';
 import adminIcon from '../assets/adminicon.png';
 import userRoleCheck from '../utils/authUtils';
 
 const Dashboard = () => {
+
+  document.title = 'Dashboard';
+  
   const navigate = useNavigate();
   const isAdmin = userRoleCheck();
 
