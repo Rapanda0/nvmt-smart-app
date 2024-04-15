@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './global.css';
 
 const Forbidden = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const Forbidden = () => {
     <div>
       <button onClick={() => navigate('/dashboard')}>Back</button>
       <h1>403 Forbidden</h1>
-      <p>Sorry, you are not authorized to access this page.</p>
+      <p>You are not authorized to view this page.</p>
     </div>
   );
 };

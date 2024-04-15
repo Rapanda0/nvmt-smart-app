@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import './global.css';
 
 const HomePage = () => {
   document.title = 'Home';

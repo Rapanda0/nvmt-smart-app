@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import LogoutButton from './LogoutButton';
 import './LogoutButton.css';
+import './global.css';
 
 
 

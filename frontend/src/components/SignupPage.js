@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
 import logo from '../assets/logo-transparent-png.png'; 
+import './global.css';
 
 const SignupPage = () => {
 

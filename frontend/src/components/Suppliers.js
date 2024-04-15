@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Suppliers.css'; 
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from './api';
+import './global.css';
 
 const Suppliers = () => {
     const navigate = useNavigate(); 
@@ -51,15 +52,25 @@ const Suppliers = () => {
         navigate(-1); 
     };
 
+
+    // Loading screen 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className= "loadingText">
+                Loading...
+                <div className="center">
+                    {[...Array(10)].map((_, index) => (
+                        <div key={index} className="wave"></div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     return (
         <div className="suppliersContainer">
-            <button onClick={() => window.history.back()}>Back</button> {/* Use history.goBack() if using React Router */}
-      
-            <h2>Add New Supplier</h2>
+            <button onClick={() => window.history.back()} className= "backButton">Back</button> {/* Use history.goBack() if using React Router */}
+            <h2 className= "addSupplierHeader">Add New Supplier</h2>
             <form onSubmit={handleSubmit} className="supplierForm">
                 <input
                     type="text"
@@ -92,8 +103,7 @@ const Suppliers = () => {
                 />
                 <button type="submit">Add Supplier</button>
             </form>
-            <button type="button" onClick={handleBack} className="backButton">Back</button>
-            <h2>Existing Suppliers</h2>
+            <h2 className= "existingSuppliersHeader">Existing Suppliers</h2>
             <div className="suppliersList">
                 {suppliers.length > 0 ? (
                     <table>
@@ -117,7 +127,7 @@ const Suppliers = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No suppliers found.</p>
+                    <p>No existing suppliers...</p>
                 )}
             </div>
         </div>

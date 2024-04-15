@@ -1,12 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: white;
-  background-image: url('..\\frontend\\src\\assets\\background-image.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 .signupContainer {
   display: flex;
   flex-direction: column;

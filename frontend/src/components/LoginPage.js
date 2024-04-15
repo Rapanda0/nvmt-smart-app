@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'; 
 import logo from '../assets/logo-transparent-png.png'; 
+import './global.css';
 
 const LoginPage = () => {
     document.title = 'Login';

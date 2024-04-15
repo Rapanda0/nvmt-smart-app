@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from './api';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa'; 
 import userRoleCheck from '../utils/authUtils';
+import './global.css';
 
 const Admin = () => {
     const [users, setUsers] = useState([]);
@@ -111,7 +112,16 @@ const Admin = () => {
     });
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div className= "loadingText">
+                Loading...
+                <div className="center">
+                    {[...Array(10)].map((_, index) => (
+                        <div key={index} className="wave"></div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     return (
