@@ -1,16 +1,21 @@
-/* Inventory Page Container */
+body {
+  background-image: url("C:\Users\Parth\Downloads\background-image.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  opacity: 0.8; /* Adjust the opacity of the background image */
+}
+
+
+/* Ensure the page content is positioned relative to the body */
 .inventoryPageContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-image: url("C:\Users\Parth\Downloads\background-image.svg"); /* Use the SVG background image */
-  background-size: cover; /* Adjust the background size as needed */
-  background-repeat: no-repeat; /* Prevent the background from repeating */
+  height: 100%; /* Occupy full height of the body */
 }
-
-/* Rest of your CSS styles */
-
-
 
 
 /* Left Column */
@@ -29,11 +34,12 @@
   width: 100%;
 }
 
-/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.029); /* Adjust the opacity and color of the table */
 }
+
 
 th, td {
   text-align: left;
@@ -59,7 +65,7 @@ body {
   cursor: pointer;
   text-decoration: none;
   color: white;
-  background-color: #3fad1d; /* Mint green */
+  background-color: #545453; /* Mint green */
   transition: background-position 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 1.1);
   background-size: 200% auto; /* Background size for gradient animation */
