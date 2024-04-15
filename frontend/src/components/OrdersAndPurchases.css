@@ -97,9 +97,8 @@ button:hover {
     text-align: center;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    table, input, select, button {
-        width: 100%;
-    }
+/* Apply background image only to OrdersAndPurchases page */
+.ordersAndPurchasesBackground {
+    background-image: url("file:///C:/Users/Parth/Downloads/background-image.svg"); /* Adjust your background image path here */
+    padding: 20px; /* You may need to adjust padding based on your design */
 }
