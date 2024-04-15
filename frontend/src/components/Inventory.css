@@ -1,5 +1,6 @@
+/* Set background image on body */
 body {
-  background-image: url("C:\Users\Parth\Downloads\background-image.svg");
+  background-image: url("../assets/background-image.svg");
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;
@@ -7,7 +8,6 @@ body {
   height: 100vh;
   opacity: 0.8; /* Adjust the opacity of the background image */
 }
-
 
 /* Ensure the page content is positioned relative to the body */
 .inventoryPageContainer {
@@ -17,14 +17,14 @@ body {
   height: 100%; /* Occupy full height of the body */
 }
 
-
 /* Left Column */
 .leftColumn {
   margin: 20px;
 }
 
 /* Add Item Section and Category Creation */
-.addItemSection, .categoryCreation {
+.addItemSection,
+.categoryCreation {
   margin-bottom: 20px;
 }
 
@@ -34,14 +34,15 @@ body {
   width: 100%;
 }
 
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.029); /* Adjust the opacity and color of the table */
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust the opacity and color of the table */
 }
 
-
-th, td {
+th,
+td {
   text-align: left;
   padding: 8px;
   border-bottom: 1px solid #ddd;
@@ -57,7 +58,9 @@ body {
 }
 
 /* Button Styles */
-.button, .add-item-button, .add-category-button {
+.button,
+.add-item-button,
+.add-category-button {
   display: inline-block;
   padding: 10px 20px;
   border: none;
@@ -73,7 +76,9 @@ body {
 }
 
 /* Button Hover Effects */
-.button:hover, .add-item-button:hover, .add-category-button:hover {
+.button:hover,
+.add-item-button:hover,
+.add-category-button:hover {
   transform: translateY(-3px); /* Move the button slightly up */
   box-shadow: 0 8px 12px rgba(0, 0, 0, 1.3); /* Darker shadow */
   background-position: right center; /* Change the position of the gradient */
