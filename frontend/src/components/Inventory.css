@@ -3,7 +3,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background-image: url("C:\Users\Parth\Downloads\background-image.svg"); /* Use the SVG background image */
+  background-size: cover; /* Adjust the background size as needed */
+  background-repeat: no-repeat; /* Prevent the background from repeating */
 }
+
+/* Rest of your CSS styles */
+
+
+
 
 /* Left Column */
 .leftColumn {
@@ -52,12 +60,15 @@ body {
   text-decoration: none;
   color: white;
   background-color: #3fad1d; /* Mint green */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-position 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 1.1);
+  background-size: 200% auto; /* Background size for gradient animation */
+  background-image: linear-gradient(to right, #3fad1d 50%, #55d444 50%); /* Initial gradient */
 }
 
 /* Button Hover Effects */
 .button:hover, .add-item-button:hover, .add-category-button:hover {
   transform: translateY(-3px); /* Move the button slightly up */
   box-shadow: 0 8px 12px rgba(0, 0, 0, 1.3); /* Darker shadow */
+  background-position: right center; /* Change the position of the gradient */
 }
