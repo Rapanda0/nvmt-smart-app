@@ -1,155 +1,47 @@
-/* src/components/HomePage.css */
+.homePageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Set height to 100% of viewport height */
+  background-image: url('../assets/homepage-7-1920x860.jpg'); /* Adjusted background image URL */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+}
 
-/* Reset CSS */
-.body{
+.homePageTitle {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-size: 2.5rem;
+  color: white;
 }
 
-
-.contentContainer {
-  display: flex;
-  flex: 1;
-  height: 100vh; /* Cover full height of the container */
-  size-adjust: cover;
+.homePageButtons {
+  margin-top: 20px;
 }
 
-.leftSide {
-  flex: 6;
-  position: relative; /* Required for z-index */
-  background-image: url('../assets/restaurant.png');
-  background-size: 100% 100%; /* Ensure the background image covers the entire screen */
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.leftSide img {
-  z-index: 1; /* Ensure the image is above the pseudo-element */
-  filter: blur(5px); /* Apply the blur effect */
-}
-
-.leftSide::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
-  z-index: 0; /* Ensure the overlay is behind the image */
-}
-
-.logoImage {
-  width: 70px; /* Adjust size as needed */
-  filter: none; /* Remove any filter effects applied */
-}
-
-.rightSide {
-  flex: 4;
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  background-size: cover;
-}
-
-.getStartedTitle {
-  font-size: 2rem;
-  color: whitesmoke;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.animatedText {
-  font-size: 3rem;
-  animation: fadeInUp 1.5s ease-in-out;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  color: whitesmoke;
-  text-shadow:black;
-  z-index: 2; /* Ensure the text and logo are above the pseudo-element */ 
-}
-
-.buttonContainer {
-  display: flex;
-}
-
-.homeLoginButton {
-  padding: 15px 30px;
+.button {
+  background-color: #007bff;
+  color: rgba(255, 255, 255, 0.863);
+  padding: 10px 20px;
   margin: 0 10px;
-  background: linear-gradient(to bottom, #007bff, #0056b3);
-  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out, transform 0.3s ease; /* Added transform transition */
 }
 
-.homeSignupButton{
-  padding: 15px 30px;
-  margin: 0 10px;
-  background: linear-gradient(to bottom, #3fad1d, #2f8c15);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.homeLoginButton:hover {
-  background: linear-gradient(to bottom, #0056b3, #004094);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02);
-  font-weight: bold;
+.button:active {
+  background-color: #004094;
 }
 
-
-.homeSignupButton:hover{
-  background: linear-gradient(to bottom, #2f8c15, #2f8c15);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02);
-  font-weight: bold;
-}
-.homeLoginButton:active, .homeSignupButton:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.homeLoginButton.animated, .homeSignupButton.animated {
-  animation: moveInBottom 1.5s ease-in-out;
-}
-
-@keyframes moveInBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.buttonLink {
+  text-decoration: none;
+  color: white;
 }

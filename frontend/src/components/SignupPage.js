@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
-import logo from '../assets/logo-transparent-png.png'; 
-import './global.css';
+import BASE_URL from './api';
+
 
 const SignupPage = () => {
-
-    document.title = 'Sign Up';
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
@@ -21,7 +18,7 @@ const SignupPage = () => {
         setSuccessMessage(''); 
 
         try {
-            await axios.post('http://localhost:3000/register', {
+            await axios.post(`${BASE_URL}/register`, {
                 username,
                 password,
             });
@@ -34,48 +31,44 @@ const SignupPage = () => {
             if (error.response && error.response.data.errors) {
                 setErrors(error.response.data.errors);
             } else {
+                
                 setErrors([{ msg: "An unexpected error occurred." }]);
             }
         }
     };
 
     return (
-        <div className="signupPageContainer">
-            <a href="/" className="logoLink">
-                <img src={logo} alt="Logo" className="smallLogo" />
-            </a>
-            <div className="signupContainer">
-                <img src={logo} alt="Logo" className="loginLogo" />
-                <h2 className="signupTitle">Sign Up</h2>
-                {successMessage && <div className="successMessage">{successMessage}</div>}
-                {errors.map((error, index) => (
-                    <div key={index} className="errorMessage">
-                        {error.msg}
-                    </div>
-                ))}
-                <form onSubmit={handleSubmit} className="signupForm">
+        <div>
+            <h2>Sign Up</h2>
+            {successMessage && <div className="successMessage">{successMessage}</div>}
+            {errors.map((error, index) => (
+                <div key={index} className="errorMessage">
+                    {error.msg}
+                </div>
+            ))}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="username">Username</label>
                     <input
-                        className={`signupUsernameInput ${errors.length > 0 && 'error'}`}
-                        type="Username"
-                        placeholder="Username"
+                        type="text"
+                        id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
+                </div>
+                <div>
+                    <label htmlFor="password">Password</label>
                     <input
-                        className={`signupPasswordInput ${errors.length > 0 && 'error'}`}
                         type="password"
-                        placeholder="Password"
+                        id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
-                    <button type="submit" className="signUpButton">Sign Up</button>
-                </form>
-
-                <div className="loginLink">
-                    <p>Already have an account?</p>
-                    <button onClick={() => navigate('/login')} className="loginLinkButton">Login</button>
                 </div>
-            </div>
+                <button type="submit">Sign Up</button>
+            </form>
         </div>
     );
 };

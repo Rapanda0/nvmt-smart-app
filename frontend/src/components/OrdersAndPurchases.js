@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OrdersAndPurchases.css'; 
 import BASE_URL from './api';
-import './global.css';
 
 const OrdersAndPurchases = () => {
-
-    document.title = "Orders";
-    
     const [orders, setOrders] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -54,22 +50,10 @@ const OrdersAndPurchases = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className= "loadingText">
-                Loading...
-                <div className="center">
-                    {[...Array(10)].map((_, index) => (
-                        <div key={index} className="wave"></div>
-                    ))}
-                </div>
-            </div>
-        );
-    }
+    if (loading) return <div>Loading...</div>;
 
     return (
         <div className="ordersPageContainer">
-            <button onClick={() => window.history.back()} className= "backButton">Back</button> {/* Use history.goBack() if using React Router */}
             <h2>Orders & Purchases</h2>
             <div className="orderFormContainer">
                 <h3>Add New Order</h3>
@@ -100,7 +84,7 @@ const OrdersAndPurchases = () => {
                             <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
                         ))}
                     </select>
-                    <button type="submit" className= "addOrderButton">Add Order</button>
+                    <button type="submit">Add Order</button>
                 </form>
             </div>
             <div className="ordersListContainer">
@@ -112,7 +96,7 @@ const OrdersAndPurchases = () => {
                         ))}
                     </ul>
                 ) : (
-                    <p>No existing orders...</p>
+                    <p>No orders found.</p>
                 )}
             </div>
         </div>
