@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 //admin checking utility
+// NEEDS UPDATING, SHITS BUGGY AF IMO, SHOULD ONLY CHECK ADMIN, NOT IF AUTHENTICATED
 const useRoleCheck = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');

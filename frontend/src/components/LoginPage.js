@@ -4,6 +4,7 @@ import axios from 'axios';
 import './LoginPage.css'; 
 import logo from '../assets/logo-transparent-png.png'; 
 import './global.css';
+import BASE_URL from './api';
 
 const LoginPage = () => {
     document.title = 'Login';
@@ -33,7 +34,7 @@ const LoginPage = () => {
 
         try {
             // Attempt to log in
-            const response = await axios.post('http://localhost:3000/login', {
+            const response = await axios.post(`${BASE_URL}/login`, {
                 username,
                 password
             });

@@ -6,12 +6,24 @@ const LogoutButton = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
 
-    window.location.href = '/login'; // Redirect using JavaScript
+    window.location.href = '/'; // Redirect using JavaScript
   };
 
   return (
-    <button onClick={handleLogout}className= "logoutButton">Logout</button>
+    <button onClick={handleLogout} className='logoutButton'>Logout</button>
   );
 };
 
 export default LogoutButton;
+
+// try {
+//   const { username, password } = req.body;
+//   const hashedPassword = await bcrypt.hash(password, saltRounds);
+//   const role_id = 3;
+
+//   const newUser = await pool.query(
+//     'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',
+//     [username, hashedPassword]
+//     'INSERT INTO users (username, password, role_id) VALUES ($1, $2, $3) RETURNING *',
+//     [username, hashedPassword, role_id]
+//   );

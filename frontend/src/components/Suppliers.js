@@ -21,6 +21,10 @@ const Suppliers = () => {
         const fetchSuppliers = async () => {
             setLoading(true);
             try {
+                //if (!isAuthenticated()) {
+                //    navigate('/login');
+                //    return;
+                //}
                 const response = await axios.get(`${BASE_URL}/suppliers`);
                 setSuppliers(response.data);
             } catch (error) {

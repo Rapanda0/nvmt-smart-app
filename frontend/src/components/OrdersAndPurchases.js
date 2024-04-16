@@ -22,6 +22,10 @@ const OrdersAndPurchases = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
+                  //if (!isAuthenticated()) {
+                //    navigate('/login');
+                //    return;
+                //}
                 const [orderResponse, supplierResponse] = await Promise.all([
                     axios.get(`${BASE_URL}/inventory/orders`),
                     axios.get(`${BASE_URL}/inventory/suppliers`)
