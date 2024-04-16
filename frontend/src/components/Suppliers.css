@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .supplierForm input, .supplierForm button {
@@ -50,24 +51,111 @@
 .supplierForm button {
     background-color: #4CAF50;
     color: white;
-    border: none;
+    border: 1px solid white;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .supplierForm button:hover {
     background-color: #45a049;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
 }
 
-.button {
-    margin: 10px;
-    padding: 10px 15px;
-    background-color: #4CAF50;
+.backButton {
+    position: fixed; 
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom,#3fad1d, #2f8c15);
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 1050; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.button:hover {
+.backButton:hover {
     background-color: #45a049;
+}
+.addSupplierHeader{
+  font-weight: bolder;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+.existingSuppliersHeader{
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+
+.loadingText {
+  font-size: 2rem;
+  color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.wave {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom,#3fad1d, #2f8c15);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
