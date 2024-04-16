@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Inventory.css';
+
 import BASE_URL from './api';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticated } from '../utils/authUtils';
@@ -17,7 +18,6 @@ const Inventory = () => {
   const [loading, setLoading] = useState(true);
   const [categoryError, setCategoryError] = useState('');
   const [newCategoryName, setNewCategoryName] = useState('');
-  const navigate = useNavigate();
   const [newItem, setNewItem] = useState({
     name: '',
     quantity: '',
@@ -32,15 +32,16 @@ const Inventory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         //if (!isAuthenticated()) {
         //    navigate('/login');
         //    return;
         //}
-      
+
         const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
-          axios.get(`${BASE_URL}/inventory`),
-          axios.get(`${BASE_URL}/categories`),
-          axios.get(`${BASE_URL}/suppliers`),
+          axios.get('http://localhost:3000/inventory'),
+          axios.get('http://localhost:3000/categories'),
+          axios.get('http://localhost:3000/suppliers'),
         ]);
         setInventoryItems(inventoryResponse.data);
         setCategories(categoryResponse.data);
@@ -62,7 +63,7 @@ const Inventory = () => {
       return;
     }
     try {
-      const response = await axios.post(`${BASE_URL}/categories`, { name: newCategoryName });
+      const response = await axios.post('http://localhost:3000/categories', { name: newCategoryName });
       setCategories([...categories, response.data]);
       setNewCategoryName('');
       setCategoryError('');
@@ -86,7 +87,7 @@ const Inventory = () => {
     const capitalizedItemName = newItem.name.charAt(0).toUpperCase() + newItem.name.slice(1);
 
     try {
-      const response = await axios.post(`${BASE_URL}/inventory`, {
+      const response = await axios.post('http://localhost:3000/inventory', {
         ...newItem,
         name: capitalizedItemName,
         category_id: newItem.categoryId,
@@ -144,7 +145,11 @@ const Inventory = () => {
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
             />
+
+            <button type="submit" className="add-category-button">Add Category</button>
+
             <button type="submit" className= "categoryButton">Add Category</button>
+
           </form>
         </div>
         <div className="addItemSection">
@@ -214,7 +219,11 @@ const Inventory = () => {
               value={newItem.unit_of_measurement}
               onChange={(e) => setNewItem({ ...newItem, unit_of_measurement: e.target.value })}
             />
+
+            <button type="submit" className="add-item-button">Add Item</button>
+
             <button type="submit" className= "addItemButton">Add Item</button>
+
           </form>
         </div>
       </div>
@@ -254,5 +263,4 @@ const Inventory = () => {
 };
 
 export default Inventory;
-
 
