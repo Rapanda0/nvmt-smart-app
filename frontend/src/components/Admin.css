@@ -70,3 +70,48 @@ td {
     text-align: left; /* Align text inside table data cells */
     border: 1px solid #ccc; /* Add borders to table data cells */
 }
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.editUserButton{
+    padding: 10px;
+    background-color: #3fad1d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: 1px solid whitesmoke;
+    width: 30%;
+  }
+  
+  .editUserButton:hover{
+    background-color: #2f8c15;
+    transform: scale(1.02);
+  
+  }
+
+  .backButton {
+    position: fixed;
+    top: 20px; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the left position as needed */
+    padding: 10px;
+    background-color: #3fad1d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: 1px solid whitesmoke;
+  }
+
+  .table-container {
+    padding: 20px;
+  }

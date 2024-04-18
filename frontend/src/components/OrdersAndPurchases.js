@@ -12,10 +12,9 @@ function OrderAndPurchase() {
     total: 0,
   });
   const [orders, setOrders] = useState([]);
-  const [suppliers, setSuppliers] = useState([]); // State to store suppliers
+  const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch suppliers from your backend
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,7 +50,7 @@ function OrderAndPurchase() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const total = order.items.reduce((acc, item) => acc + Number(item.quantity), 0) * 10; // Example calculation
+    const total = order.items.reduce((acc, item) => acc + Number(item.quantity), 0) * 10;
     const newOrder = { ...order, total };
     setOrders([...orders, newOrder]);
     setOrder({
@@ -68,26 +67,29 @@ function OrderAndPurchase() {
   }
 
   return (
-    <div>
+    <div className="orderAndPurchaseContainer">
       <h2>Create Order</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="orderForm">
         <input
           type="text"
           name="orderNo"
           placeholder="Order No"
           value={order.orderNo}
           onChange={handleInputChange}
+          className="orderInput"
         />
         <input
           type="date"
           name="date"
           value={order.date}
           onChange={handleInputChange}
+          className="orderInput"
         />
         <select
           name="supplier"
           value={order.supplier}
           onChange={handleInputChange}
+          className="orderInput"
         >
           <option value="">Select a Supplier</option>
           {suppliers.map((supplier) => (
@@ -97,13 +99,14 @@ function OrderAndPurchase() {
           ))}
         </select>
         {order.items.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="orderItem">
             <input
               type="text"
               name="name"
               placeholder="Item Name"
               value={item.name}
               onChange={(event) => handleItemChange(index, event)}
+              className="orderInput"
             />
             <input
               type="number"
@@ -111,17 +114,22 @@ function OrderAndPurchase() {
               placeholder="Quantity"
               value={item.quantity}
               onChange={(event) => handleItemChange(index, event)}
+              className="orderInput"
             />
           </div>
         ))}
-        <button type="button" onClick={addItem}>Add Item</button>
-        <button type="submit">Submit Order</button>
+        <button type="button" onClick={addItem} className="orderButton">
+          Add Item
+        </button>
+        <button type="submit" className="orderButton">
+          Submit Order
+        </button>
       </form>
 
       <h2>Orders</h2>
-      <ul>
+      <ul className="orderList">
         {orders.map((order, index) => (
-          <li key={index}>
+          <li key={index} className="orderListItem">
             Order No: {order.orderNo}, Date: {order.date}, Supplier: {order.supplier}, Total: ${order.total}
             <ul>
               {order.items.map((item, idx) => (

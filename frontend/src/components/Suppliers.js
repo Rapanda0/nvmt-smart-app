@@ -17,22 +17,23 @@ const Suppliers = () => {
         address: '',
     });
 
+    const fetchSuppliers = async () => {
+        setLoading(true);
+        try {
+            //if (!isAuthenticated()) {
+            //    navigate('/login');
+            //    return;
+            //}
+            const response = await axios.get(`${BASE_URL}/suppliers`);
+            setSuppliers(response.data);
+        } catch (error) {
+            console.error("Failed to fetch suppliers:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchSuppliers = async () => {
-            setLoading(true);
-            try {
-                //if (!isAuthenticated()) {
-                //    navigate('/login');
-                //    return;
-                //}
-                const response = await axios.get(`${BASE_URL}/suppliers`);
-                setSuppliers(response.data);
-            } catch (error) {
-                console.error("Failed to fetch suppliers:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
 
         fetchSuppliers();
     }, []);
@@ -53,10 +54,6 @@ const Suppliers = () => {
         }
     };
 
-    const handleBack = () => {
-        navigate(-1); 
-    };
-
 
     // Loading screen 
     if (loading) {
@@ -74,7 +71,7 @@ const Suppliers = () => {
 
     return (
         <div className="suppliersContainer">
-            <button onClick={() => window.history.back()} className= "backButton">Back</button> {/* Use history.goBack() if using React Router */}
+            <button onClick={() => navigate('/dashboard')} className= "backButton">Back</button> {/* Use history.goBack() if using React Router */}
             <h2 className= "addSupplierHeader">Add New Supplier</h2>
             <form onSubmit={handleSubmit} className="supplierForm">
                 <input

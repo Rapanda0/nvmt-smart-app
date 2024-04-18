@@ -63,18 +63,5 @@ router.put('/suppliers/:id', async (req, res) => {
 });
 
 // Route to delete a supplier
-router.delete('/suppliers/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedSupplier = await pool.query('DELETE FROM suppliers WHERE id = $1 RETURNING *', [id]);
-    if (deletedSupplier.rows.length === 0) {
-      return res.status(404).json({ message: 'Supplier not found' });
-    }
-    res.json({ message: 'Supplier deleted' });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server error');
-  }
-});
 
 module.exports = router;

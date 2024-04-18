@@ -126,8 +126,9 @@ const Admin = () => {
 
     return (
         <div>
-            <button onClick={() => navigate('/dashboard') }>Back</button>
+            <button className="backButton" onClick={() => navigate('/dashboard') }>Back</button>
             <h2>User List (Admin Only)</h2>
+            <div className='table-container'>
             <table>
                 <thead>
                     <tr>
@@ -186,18 +187,19 @@ const Admin = () => {
                             <td>
                                 {editingUser && editingUser.id === user.id ? (
                                     <>
-                                        <button onClick={saveEditedUser}>Save</button>
-                                        <button onClick={cancelEditUser}>Cancel</button>
+                                        <button className='editUserButton' onClick={saveEditedUser}>Save</button>
+                                        <button className='editUserButton' onClick={cancelEditUser}>Cancel</button>
                                     </>
                                 ) : (
-                                    <button onClick={() => handleEditUser(user)}>Edit</button>
+                                    <button className='editUserButton' onClick={() => handleEditUser(user)}>Edit</button>
                                 )}
-                                <button onClick={() => showDeleteConfirmation(user)}>Delete</button>
+                                <button className='editUserButton'onClick={() => showDeleteConfirmation(user)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            </div>
 
             {/* Confirmation Dialog */}
             {showConfirmDialog && (
@@ -207,8 +209,8 @@ const Admin = () => {
                         <p><strong>ID:</strong> {userToDelete.id}</p>
                         <p><strong>Username:</strong> {userToDelete.username}</p>
                         <div className="confirmation-buttons">
-                            <button onClick={handleDeleteUser}>Confirm</button>
-                            <button onClick={() => setShowConfirmDialog(false)}>Cancel</button>
+                            <button className='editUserButton' onClick={handleDeleteUser}>Confirm</button>
+                            <button className='editUserButton' onClick={() => setShowConfirmDialog(false)}>Cancel</button>
                         </div>
                     </div>
                 </div>

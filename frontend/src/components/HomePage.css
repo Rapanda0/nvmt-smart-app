@@ -12,7 +12,7 @@
   display: flex;
   flex: 1;
   height: 100vh; /* Cover full height of the container */
-  size-adjust: cover;
+  size-adjust: cover;;
 }
 
 .leftSide {
