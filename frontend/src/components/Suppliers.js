@@ -4,6 +4,7 @@ import './Suppliers.css';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from './api';
 import './global.css';
+import { isAuthenticated } from '../utils/authUtils';
 
 const Suppliers = () => {
     document.title = "Suppliers";
@@ -20,10 +21,10 @@ const Suppliers = () => {
     const fetchSuppliers = async () => {
         setLoading(true);
         try {
-            //if (!isAuthenticated()) {
-            //    navigate('/login');
-            //    return;
-            //}
+            if (!isAuthenticated()) {
+               navigate('/login');
+               return;
+            }
             const response = await axios.get(`${BASE_URL}/suppliers`);
             setSuppliers(response.data);
         } catch (error) {

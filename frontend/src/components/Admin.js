@@ -4,7 +4,7 @@ import './Admin.css';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from './api';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa'; 
-import userRoleCheck from '../utils/authUtils';
+import { isAdmin } from '../utils/authUtils';
 import './global.css';
 
 const Admin = () => {
@@ -18,7 +18,6 @@ const Admin = () => {
     const [sortField, setSortField] = useState('id'); 
     const [sortOrder, setSortOrder] = useState('asc');
 
-    const isAdmin = userRoleCheck();
 
     useEffect(() => {
         if (isAdmin) {

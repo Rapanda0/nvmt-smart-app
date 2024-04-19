@@ -37,10 +37,10 @@ const Inventory = () => {
 
 const fetchData = async () => {
   try {
-    //if (!isAuthenticated()) {
-    //    navigate('/login');
-    //    return;
-    //}
+    if (!isAuthenticated()) {
+       navigate('/login');
+       return;
+    }
   
     const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
       axios.get(`${BASE_URL}/inventory`),

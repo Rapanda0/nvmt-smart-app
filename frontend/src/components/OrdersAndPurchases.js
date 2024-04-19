@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OrdersAndPurchases.css';
 import BASE_URL from './api';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../utils/authUtils';
 
 function OrderAndPurchase() {
   const [order, setOrder] = useState({
@@ -14,19 +16,25 @@ function OrderAndPurchase() {
   const [orders, setOrders] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  const fetchData = async () => {
+    try {
+      if (!isAuthenticated()) {
+        navigate('/login');
+        return;
+     }
+
+      const response = await axios.get(`${BASE_URL}/suppliers`);
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error('Error fetching suppliers: ', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/suppliers`);
-        setSuppliers(response.data);
-      } catch (error) {
-        console.error('Error fetching suppliers: ', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+ 
     fetchData();
   }, []);
 

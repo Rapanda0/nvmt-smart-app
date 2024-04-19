@@ -13,7 +13,7 @@ import Forbidden from './components/Forbidden';
 function App() {
 
   //UNCOMMENTED WHEN FINISHED TESTING
-  // const userRole = localStorage.getItem('role_id');
+  const userRole = localStorage.getItem('role_id');
 
   return (
     <Router>
@@ -26,12 +26,11 @@ function App() {
         <Route path="/suppliers" element={<Suppliers />} />
         <Route path="/orders" element={<OrdersAndPurchases />} />
         <Route path="/forbidden" element={<Forbidden />} />
-        {/* {userRole === '1' ? (
+        {userRole === '1' ? (
           <Route path="/admin" element={<Admin />} />
         ) : (
           <Route path="/admin" element={<Navigate to="/forbidden" />} />
-        )} */}
-        <Route path="/admin" element={<Admin />} />
+        )}
       </Routes>
     </Router>
   );
