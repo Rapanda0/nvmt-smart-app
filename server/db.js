@@ -1,22 +1,15 @@
 const { Pool } = require('pg');
 
 // ACTUAL DB DONT USE UNLESS WERE FINISHED WITH EVERYTHING AND ITS FINAL
-// const pool = new Pool({
-//   user: 'postgres.inkgeoagzteoswbmhiuw',
-//   host: 'aws-0-ca-central-1.pooler.supabase.com',
-//   database: 'postgres',
-//   password: 'S41tsucks?410t',
-//   port: 5432, 
-// });
-
-// local testdb RYEKS
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'nvmtdb',
-  password: 'password',
+  user: 'postgres.inkgeoagzteoswbmhiuw',
+  host: 'aws-0-ca-central-1.pooler.supabase.com',
+  database: 'postgres',
+  password: 'S41tsucks?410t',
   port: 5432, 
 });
+
+
 
 // Function to test the database connection
 async function testDatabaseConnection() {
