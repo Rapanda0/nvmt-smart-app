@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import LogoutButton from './LogoutButton';
 import './LogoutButton.css';
 import './global.css';
-
+import { useEffect } from 'react';
+import { isAuthenticated } from '../utils/authUtils';
 
 
 import inventoryIcon from '../assets/inventory.png';
 import ordersIcon from '../assets/oandp.png';
 import suppliersIcon from '../assets/suppliers.png';
 import adminIcon from '../assets/adminicon.png';
-import userRoleCheck from '../utils/authUtils';
+import { isAdmin } from '../utils/authUtils';
 
 const Dashboard = () => {
 
   document.title = 'Dashboard';
   
   const navigate = useNavigate();
-  const isAdmin = userRoleCheck();
+ 
 
+  const checkAuthentication = async () => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+      return;
+    }
+  };
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
 
   return (
     <div className="dashboardContainer">
@@ -39,7 +48,7 @@ const Dashboard = () => {
           <img src={ordersIcon} alt="Orders & Purchases Icon" className="icon" />
           <p>Orders & Purchases</p>
         </div>
-        {isAdmin.isAdmin && (
+        {isAdmin() && (
           <div className="flexBox" onClick={() => navigate('/admin')}>
             <img src={adminIcon} alt="Admin Icon" className="icon" />
             <p>Admin</p>

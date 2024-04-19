@@ -1,13 +1,15 @@
 const { Pool } = require('pg');
 
+// ACTUAL DB DONT USE UNLESS WERE FINISHED WITH EVERYTHING AND ITS FINAL
 const pool = new Pool({
-  user: 'ryek_admin',
-  host: 'nvmt-smart-postgresql.postgres.database.azure.com',
-  database: 'nvmt_smart',
-  password: 'S41tsucks?',
+  user: 'postgres.inkgeoagzteoswbmhiuw',
+  host: 'aws-0-ca-central-1.pooler.supabase.com',
+  database: 'postgres',
+  password: 'S41tsucks?410t',
   port: 5432, 
 });
-// NEW CHANGES HELLO
+
+
 
 // Function to test the database connection
 async function testDatabaseConnection() {

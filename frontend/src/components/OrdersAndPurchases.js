@@ -1,122 +1,154 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './OrdersAndPurchases.css'; 
+import './OrdersAndPurchases.css';
 import BASE_URL from './api';
-import './global.css';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../utils/authUtils';
 
-const OrdersAndPurchases = () => {
+function OrderAndPurchase() {
+  const [order, setOrder] = useState({
+    orderNo: '',
+    date: '',
+    supplier: '',
+    items: [{ name: '', quantity: 0 }],
+    total: 0,
+  });
+  const [orders, setOrders] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-    document.title = "Orders";
-    
-    const [orders, setOrders] = useState([]);
-    const [suppliers, setSuppliers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [newOrder, setNewOrder] = useState({
-        order_date: '',
-        total_amount: '',
-        supplier_id: '',
-        is_purchase_order: false,
-    });
+  const fetchData = async () => {
+    try {
+      if (!isAuthenticated()) {
+        navigate('/login');
+        return;
+     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const [orderResponse, supplierResponse] = await Promise.all([
-                    axios.get(`${BASE_URL}/inventory/orders`),
-                    axios.get(`${BASE_URL}/inventory/suppliers`)
-                ]);
-                setOrders(orderResponse.data);
-                setSuppliers(supplierResponse.data);
-            } catch (error) {
-                console.error("Failed to fetch data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleNewOrderChange = (e) => {
-        const { name, value } = e.target;
-        setNewOrder({ ...newOrder, [name]: value });
-    };
-
-    const handleSubmitOrder = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post(`${BASE_URL}/inventory/orders`, newOrder);
-            setOrders([...orders, response.data]);
-            setNewOrder({ order_date: '', total_amount: '', supplier_id: '', is_purchase_order: false });
-        } catch (error) {
-            console.error("Error submitting new order:", error);
-        }
-    };
-
-    if (loading) {
-        return (
-            <div className= "loadingText">
-                Loading...
-                <div className="center">
-                    {[...Array(10)].map((_, index) => (
-                        <div key={index} className="wave"></div>
-                    ))}
-                </div>
-            </div>
-        );
+      const response = await axios.get(`${BASE_URL}/suppliers`);
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error('Error fetching suppliers: ', error);
+    } finally {
+      setLoading(false);
     }
+  };
+  useEffect(() => {
+ 
+    fetchData();
+  }, []);
 
-    return (
-        <div className="ordersPageContainer">
-            <button onClick={() => window.history.back()} className= "backButton">Back</button> {/* Use history.goBack() if using React Router */}
-            <h2>Orders & Purchases</h2>
-            <div className="orderFormContainer">
-                <h3>Add New Order</h3>
-                <form onSubmit={handleSubmitOrder}>
-                    <input 
-                        type="date" 
-                        name="order_date" 
-                        value={newOrder.order_date}
-                        onChange={handleNewOrderChange} 
-                        required
-                    />
-                    <input 
-                        type="number" 
-                        name="total_amount" 
-                        placeholder="Total Amount" 
-                        value={newOrder.total_amount}
-                        onChange={handleNewOrderChange} 
-                        required
-                    />
-                    <select 
-                        name="supplier_id" 
-                        value={newOrder.supplier_id}
-                        onChange={handleNewOrderChange} 
-                        required
-                    >
-                        <option value="">Select Supplier</option>
-                        {suppliers.map(supplier => (
-                            <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
-                        ))}
-                    </select>
-                    <button type="submit" className= "addOrderButton">Add Order</button>
-                </form>
-            </div>
-            <div className="ordersListContainer">
-                <h3>Existing Orders</h3>
-                {orders.length > 0 ? (
-                    <ul>
-                        {orders.map(order => (
-                            <li key={order.id}>Order ID: {order.id} - Date: {order.order_date || 'N/A'} - Total: ${order.total_amount} - Supplier: {suppliers.find(supplier => supplier.id === order.supplier_id)?.name || 'Unknown'}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No existing orders...</p>
-                )}
-            </div>
-        </div>
-    );
-};
+  const handleItemChange = (index, event) => {
+    const newItems = [...order.items];
+    newItems[index][event.target.name] = event.target.value;
+    setOrder({ ...order, items: newItems });
+  };
 
-export default OrdersAndPurchases;
+  const addItem = () => {
+    setOrder({
+      ...order,
+      items: [...order.items, { name: '', quantity: 0 }],
+    });
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setOrder({ ...order, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const total = order.items.reduce((acc, item) => acc + Number(item.quantity), 0) * 10;
+    const newOrder = { ...order, total };
+    setOrders([...orders, newOrder]);
+    setOrder({
+      orderNo: '',
+      date: '',
+      supplier: '',
+      items: [{ name: '', quantity: 0 }],
+      total: 0,
+    });
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="orderAndPurchaseContainer">
+      <h2>Create Order</h2>
+      <form onSubmit={handleSubmit} className="orderForm">
+        <input
+          type="text"
+          name="orderNo"
+          placeholder="Order No"
+          value={order.orderNo}
+          onChange={handleInputChange}
+          className="orderInput"
+        />
+        <input
+          type="date"
+          name="date"
+          value={order.date}
+          onChange={handleInputChange}
+          className="orderInput"
+        />
+        <select
+          name="supplier"
+          value={order.supplier}
+          onChange={handleInputChange}
+          className="orderInput"
+        >
+          <option value="">Select a Supplier</option>
+          {suppliers.map((supplier) => (
+            <option key={supplier.id} value={supplier.name}>
+              {supplier.name}
+            </option>
+          ))}
+        </select>
+        {order.items.map((item, index) => (
+          <div key={index} className="orderItem">
+            <input
+              type="text"
+              name="name"
+              placeholder="Item Name"
+              value={item.name}
+              onChange={(event) => handleItemChange(index, event)}
+              className="orderInput"
+            />
+            <input
+              type="number"
+              name="quantity"
+              placeholder="Quantity"
+              value={item.quantity}
+              onChange={(event) => handleItemChange(index, event)}
+              className="orderInput"
+            />
+          </div>
+        ))}
+        <button type="button" onClick={addItem} className="orderButton">
+          Add Item
+        </button>
+        <button type="submit" className="orderButton">
+          Submit Order
+        </button>
+      </form>
+
+      <h2>Orders</h2>
+      <ul className="orderList">
+        {orders.map((order, index) => (
+          <li key={index} className="orderListItem">
+            Order No: {order.orderNo}, Date: {order.date}, Supplier: {order.supplier}, Total: ${order.total}
+            <ul>
+              {order.items.map((item, idx) => (
+                <li key={idx}>{item.name} - Quantity: {item.quantity}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default OrderAndPurchase;

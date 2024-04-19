@@ -77,8 +77,6 @@ router.post('/inventory', async (req, res) => {
   }
 });
 
-
-
 router.get('/inventory', async (req, res) => {
   try {
     const allInventoryItems = await pool.query(
@@ -88,6 +86,59 @@ router.get('/inventory', async (req, res) => {
       LEFT JOIN suppliers ON inventory.supplier_id = suppliers.id`
     );
     res.json(allInventoryItems.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
+router.delete('/inventory/:id', async (req, res) => {
+  const itemId = req.params.id;
+
+  try {
+    const existingItem = await pool.query('SELECT * FROM inventory WHERE id = $1', [itemId]);
+
+    if (existingItem.rows.length === 0) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    await pool.query('DELETE FROM inventory WHERE id = $1', [itemId]);
+    res.json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
+router.put('/inventory/:id', async (req, res) => {
+  const itemId = req.params.id;
+  const updatedItem = req.body;
+
+  try {
+    // Check if the item exists
+    const existingItem = await pool.query('SELECT * FROM inventory WHERE id = $1', [itemId]);
+
+    if (existingItem.rows.length === 0) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    // Update the item in the database
+    const updatedInventoryItem = await pool.query(
+      'UPDATE inventory SET name = $1, quantity = $2, price = $3, category_id = $4, threshold_quantity = $5, unit_of_measurement = $6, supplier_id = $7 WHERE id = $8 RETURNING *',
+      [
+        updatedItem.name,
+        updatedItem.quantity,
+        updatedItem.price,
+        updatedItem.category_id,
+        updatedItem.threshold_quantity,
+        updatedItem.unit_of_measurement,
+        updatedItem.supplier_id,
+        itemId,
+      ]
+    );
+
+    res.json(updatedInventoryItem.rows[0]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');

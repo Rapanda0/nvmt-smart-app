@@ -6,12 +6,13 @@ const LogoutButton = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
 
-    window.location.href = '/login'; // Redirect using JavaScript
+    window.location.href = '/'; // Redirect using JavaScript
   };
 
   return (
-    <button onClick={handleLogout}className= "logoutButton">Logout</button>
+    <button onClick={handleLogout} className='logoutButton'>Logout</button>
   );
 };
 
 export default LogoutButton;
+

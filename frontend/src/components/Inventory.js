@@ -28,30 +28,36 @@ const Inventory = () => {
     unit_of_measurement: '',
   });
   const [addItemError, setAddItemError] = useState('');
+  const [editItem, setEditItem] = useState(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditItem({ ...editItem, [name]: value }); 
+};
+
+const fetchData = async () => {
+  try {
+    if (!isAuthenticated()) {
+       navigate('/login');
+       return;
+    }
+  
+    const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
+      axios.get(`${BASE_URL}/inventory`),
+      axios.get(`${BASE_URL}/categories`),
+      axios.get(`${BASE_URL}/suppliers`),
+    ]);
+    setInventoryItems(inventoryResponse.data);
+    setCategories(categoryResponse.data);
+    setSuppliers(supplierResponse.data);
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        //if (!isAuthenticated()) {
-        //    navigate('/login');
-        //    return;
-        //}
-      
-        const [inventoryResponse, categoryResponse, supplierResponse] = await Promise.all([
-          axios.get(`${BASE_URL}/inventory`),
-          axios.get(`${BASE_URL}/categories`),
-          axios.get(`${BASE_URL}/suppliers`),
-        ]);
-        setInventoryItems(inventoryResponse.data);
-        setCategories(categoryResponse.data);
-        setSuppliers(supplierResponse.data);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -128,9 +134,37 @@ const Inventory = () => {
     );
 }
 
+const handleDeleteItem = async (itemId) => {
+  try {
+    await axios.delete(`${BASE_URL}/inventory/${itemId}`);
+    // Remove the deleted item from the inventoryItems state
+    const updatedInventory = inventoryItems.filter(item => item.id !== itemId);
+    setInventoryItems(updatedInventory);
+  } catch (error) {
+    console.error('Error deleting item: ', error);
+  }
+};
+
+const handleEditItemClick = (item) => {
+  setEditItem(item);
+};
+
+const handleEditItemSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.put(`${BASE_URL}/inventory/${editItem.id}`, editItem);
+    console.log('Item updated successfully:', response.data);
+    setEditItem(null);
+    fetchData();
+  } catch (error) {
+    console.error('Error updating item:', error);
+  }
+};
+
+
   return (
     <div className="inventoryPageContainer">
-      <button onClick={() => window.history.back()} className= "backButton">Back</button>
+      <button onClick={() => navigate('/dashboard')} className= "backButton">Back</button>
       <div className="leftColumn">
         <div className="categoryCreation">
           <h3>Create New Category</h3>
@@ -231,6 +265,7 @@ const Inventory = () => {
               <th>Threshold Quantity</th>
               <th>Total Value</th>
               <th>Supplier</th> {/* Add Supplier column */}
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -244,14 +279,87 @@ const Inventory = () => {
               <td>{item.threshold_quantity}</td>
               <td>${parseFloat(item.quantity * item.price).toFixed(2)}</td>
               <td>{item.supplier_name || 'N/A'}</td> {/* Display Supplier name, handle accordingly if supplier_name isn't provided */}
+              <td>
+                <button className= "editItemButton" onClick={() => handleEditItemClick(item)}>Edit</button>
+              </td>
             </tr>  
           ))}
           </tbody>
         </table>
+  
+  
+        {editItem && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+
+            <div className="editItemForm">
+              <h3>Edit Item</h3>
+                  <form onSubmit={handleEditItemSubmit}>
+                    {/* Input fields pre-filled with item details */}
+                    <select
+                        name="category_id"
+                        value={editItem.category_id || ''}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
+                    </select>
+                    <input
+                      type="text"
+                      value={editItem.name}
+                      onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={editItem.quantity}
+                      onChange={(e) => setEditItem({ ...editItem, quantity: parseInt(e.target.value, 10) || '' })}
+                    />
+                    <input
+                      type="text"
+                      value={editItem.unit_of_measurement}
+                      onChange={(e) => setEditItem({ ...editItem, unit_of_measurement: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={editItem.price}
+                      onChange={(e) => setEditItem({ ...editItem, price: parseFloat(e.target.value) || '' })}
+                    />
+                    <input
+                      type="text"
+                      value={editItem.threshold_quantity}
+                      onChange={(e) => setEditItem({ ...editItem, threshold_quantity: parseInt(e.target.value, 10) || '' })}
+                    />
+                    <select
+                        name="supplier_id"
+                        value={editItem.supplier_id || ''}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">Select Category</option>
+                        {suppliers.map((supplier) => (
+                          <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+                        ))}
+                    </select>
+                    <div className='modal-buttons-container'>
+                      <button className="modal-buttons" type="submit" >Save</button>
+                      <button className= "modal-buttons deleteItemButton" onClick={() => handleDeleteItem(editItem.id)}>Delete</button>
+                    </div>
+                    <button className="modal-buttons" onClick={() => setEditItem(null)}>Exit </button>
+
+                  </form>
+            </div>
+            
+          </div>
+        </div>
+        )}
+
       </div>
     </div>
   );
 };
+      
+
 
 export default Inventory;
 

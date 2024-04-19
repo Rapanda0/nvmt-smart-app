@@ -11,6 +11,8 @@ import Admin from './components/Admin';
 import Forbidden from './components/Forbidden';
 
 function App() {
+
+  //UNCOMMENTED WHEN FINISHED TESTING
   const userRole = localStorage.getItem('role_id');
 
   return (
